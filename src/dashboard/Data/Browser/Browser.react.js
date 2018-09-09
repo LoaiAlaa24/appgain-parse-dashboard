@@ -63,6 +63,7 @@ class Browser extends DashboardView {
       selection: {},
       
       dataToExport:null,
+      dataToExportJSON:null,
       data: null,
       lastMax: -1,
       newObject: null,
@@ -93,6 +94,7 @@ class Browser extends DashboardView {
     this.showCreateClass = this.showCreateClass.bind(this);
     this.refresh = this.refresh.bind(this);
     this.exportToJSON = this.exportToJSON.bind(this);
+    this.exportToCSV = this.exportToCSV.bind(this);
     this.selectRow = this.selectRow.bind(this);
     this.updateRow = this.updateRow.bind(this);
     this.updateOrdering = this.updateOrdering.bind(this);
@@ -322,6 +324,23 @@ class Browser extends DashboardView {
 
   }
 
+  exportToCSV() {
+
+var json = JSON.parse(this.state.dataToExport );
+const items = json
+const replacer = (key, value) => value === null ? '' : value 
+const header = Object.keys(items[0])
+let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+csv.unshift(header.join(','))
+csv = csv.join('\r\n')
+ 
+    var blob = new Blob([csv], {type: "application/csv"});
+    FileSaver.saveAs(blob, "ExportedTableData.csv" );
+
+}
+
+   
+
   async fetchParseData(source, filters) {
     const query = queryFromFilters(source, filters);
     const sortDir = this.state.ordering[0] === '-' ? '-' : '+';
@@ -334,7 +353,7 @@ class Browser extends DashboardView {
 
     query.limit(200);
     const data = await query.find({ useMasterKey: true });
-   this.setState({dataToExport:JSON.stringify(data)});
+   this.setState({dataToExport:JSON.stringify(data) , dataToExportJSON:data});
     console.log(this.state.dataToExport);
     return data;
   }
@@ -894,6 +913,7 @@ class Browser extends DashboardView {
             onExport={this.showExport}
             onChangeCLP={this.handleCLPChange}
             onRefresh={this.refresh}
+            onExportToCSV={this.exportToCSV}
             onExportToJSON={this.exportToJSON}
             onAttachRows={this.showAttachRowsDialog}
             onAttachSelectedRows={this.showAttachSelectedRowsDialog}

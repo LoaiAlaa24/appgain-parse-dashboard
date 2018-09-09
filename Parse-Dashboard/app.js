@@ -186,7 +186,7 @@ module.exports = function(config, options) {
           </script>
         </head>
         <html>
-          <title>Parse Dashboard</title>
+          <title>AppGain Parse Dashboard</title>
           <body>
             <div id="login_mount"></div>
             ${errors}
@@ -211,7 +211,7 @@ module.exports = function(config, options) {
           </script>
         </head>
         <html>
-          <title>Parse Dashboard</title>
+          <title>AppGain Parse Dashboard</title>
           <body>
             <div id="browser_mount"></div>
             <script src="${mountPath}bundles/dashboard.bundle.js"></script>

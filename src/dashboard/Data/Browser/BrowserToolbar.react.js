@@ -40,6 +40,7 @@ let BrowserToolbar = ({
   onChangeCLP,
   onRefresh,
   onExportToJSON,
+  onExportToCSV,
   hidePerms,
 
   enableDeleteAllRows,
@@ -142,6 +143,11 @@ let BrowserToolbar = ({
       <a className={styles.toolbarButton} onClick={onExportToJSON}>
         <Icon name='file-export-solid' width={14} height={14} />
         <span>Export to JSON</span>
+      </a>
+      <div className={styles.toolbarSeparator} />
+      <a className={styles.toolbarButton} onClick={onExportToCSV}>
+        <Icon name='file-export-solid' width={14} height={14} />
+        <span>Export to CSV</span>
       </a>
       <div className={styles.toolbarSeparator} />
       <BrowserFilter

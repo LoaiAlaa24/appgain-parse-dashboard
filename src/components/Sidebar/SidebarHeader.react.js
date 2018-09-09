@@ -19,7 +19,7 @@ let SidebarHeader = () => (
   </Link>
   <Link to='/apps'>
     <div className={styles.version}>
-      <div>Parse Dashboard {version}</div>
+      <div>AppGain Parse Dashboard {version}</div>
     </div>
   </Link>
 </div> );
